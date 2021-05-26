@@ -10,3 +10,6 @@ class Post(models.Model):
   # timezone.now is a function but is called only when the data is inserted
   date_posted = models.DateTimeField(default=timezone.now)
   auth = models.ForeignKey(User, on_delete=models.CASCADE)
+
+  def __str__(self):
+    return self.title
