@@ -4,7 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
           ListView,
           DetailView,
-          CreateView)
+          CreateView,
+          UpdateView)
 from .models import Post
 # Create your views here.
 
@@ -34,6 +35,17 @@ class PostCreateView(LoginRequiredMixin,CreateView):
   # context key name is object
   model = Post
   fields = ['title','content']
+
+  def form_valid(self,form):
+    form.instance.auth = self.request.user
+    return super().form_valid(form)
+
+class PostUpdateView(LoginRequiredMixin,UpdateView):
+  # uses same post_form.html
+  # looks for # <app_name>/<model>_form.html
+  # context key name is object
+  model = Post
+  fields = ['content']
 
   def form_valid(self,form):
     form.instance.auth = self.request.user
