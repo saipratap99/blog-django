@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic import ListView
+from django.views.generic import ListView,DetailView
 from .models import Post
 # Create your views here.
 
@@ -20,7 +20,10 @@ class PostListView(ListView):
   context_object_name = 'posts'
   ordering = ['-date_posted']
 
-
+class PostDetailView(DetailView):
+  # looks for # <app_name>/<model>_<detail>.html
+  # context key name is object
+  model = Post
 
 
 def about(request):
